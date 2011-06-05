@@ -21,6 +21,25 @@ def index():
 def get_jquery():
     return static_file(jquery_file,'.')
 
+@route('/show_rating')
+def rate_page():
+    return template('jquery_rating')
+
+ratings = [0,0,0,0,0]
+
+@route('/add_rating',method='POST')
+def rate_page():
+    
+    new_rate = int(request.POST.get('rating','1'))
+    ratings[new_rate-1] += 1
+
+    count = sum(ratings)
+    total = 0
+    for idx in range(len(ratings)):
+        total += (idx+1)*ratings[idx]
+    average = total / count
+    return "Content-type: text/xml\n\n<ratings><average>{}</average><count>{}</count></ratings>".format(average, count);
+
 if __name__ == '__main__':
     if local_testing:
         from bottle import debug, run
