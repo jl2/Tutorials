@@ -7,7 +7,7 @@ from bottle import route, template, error, static_file, request
 
 local_testing = True
 
-jquery_file = 'jquery-1.6.1.js'
+jquery_file = 'jquery-3.7.0.js'
 
 @route('/favicon.ico')
 def favicon():
